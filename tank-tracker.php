@@ -32,7 +32,7 @@ function create_journal_entry() {
  
             'public' => true,
             'menu_position' => 15,
-            'supports' => array( '' ),
+            'supports' => array( 'title' ),
             'taxonomies' => array( '' ),
             'menu_icon' => plugins_url( 'images/image.png', __FILE__ ),
             'has_archive' => true

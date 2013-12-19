@@ -55,7 +55,7 @@ function journal_entry_add_water_params_box() {
     add_meta_box(
         'water-parameters',
         esc_html( 'Water Parameters', 'example' ),
-        'journal_entry_water_params',
+        'journal_entry_water_params_box',
         'journal_entry',
         'normal',
         'high'

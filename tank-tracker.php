@@ -51,6 +51,7 @@ function create_journal_post_types() {
         array(
             'public' => true,
             'menu_position' => 10,
+            'hierarchical' => true,
             'labels' => array( 
                 'name' => 'Tank Journals', 
                 'singular_name' => 'Tank Journal' 

@@ -6,9 +6,10 @@
 get_header(); ?>
 
 <div id="main-content" class="main-content">
-
+<!-- this is a single-tank_journal.php page -->
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
+			<!-- Tank Journal Page Content -->
 			<?php
 			    $mypost = array( 'post_type' => 'tank_journal', );
 			    $loop = new WP_Query( $mypost );
@@ -40,14 +41,29 @@ get_header(); ?>
 						</div><!-- .entry-content -->
 					</article><!-- #post-## -->
 
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template.
-					if ( comments_open() || get_comments_number() ) {
-						comments_template();
-					}
-				endwhile;
-			?>
+			<?php endwhile; ?>
+		<!-- Play Journal Entries -->
+		<section>
+		<header class="entry-header">
+		<h2>Status Log:</h2>
+		</header>
+			<?php $loop = new WP_Query( array( 'post_type' => 'journal_entry', 'posts_per_page' => 10 ) ); ?>
+			<?php 
+				// Start the Loop again
+				while ( $loop->have_posts() ) : $loop->the_post(); ?>
+				
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<?php
+						the_date('m-d-Y', '<header class="entry-header"><h3>', '</h3></header><!-- .entry-header -->');
+					?>
 
+					<div class="entry-content">
+						<?php the_content(); ?>
+					</div>
+				</article>
+
+			<?php endwhile; ?>
+		</section>
 		</div><!-- #content -->
 	</div><!-- #primary -->
 	<?php get_sidebar( 'content' ); ?>

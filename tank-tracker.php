@@ -13,6 +13,7 @@ add_action( 'init', 'register_tank_journal_taxonomy', 0 );
 add_action( 'init', 'create_journal_post_types' );
 add_action( 'admin_init', 'journal_entry_meta_setup' );
 add_filter( 'term_link', 'my_term_to_type', 10, 3 );
+add_filter( 'template_include', 'include_tank_journal_template', 1 );
 
 
 /* Create Tank Journal Taxonomy */
@@ -178,6 +179,23 @@ function journal_entry_meta_setup() {
 
         return false;
     }
+
+/* Tank Journal Custom Template */
+
+function include_tank_journal_template( $template_path ) {
+    if ( get_post_type() == 'tank_journal' ) {
+        if ( is_single() ) {
+            // checks if the file exists in the theme first,
+            // otherwise serve the file from the plugin
+            if ( $theme_file = locate_template( array ( 'single-tank_journal.php' ) ) ) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = plugin_dir_path( __FILE__ ) . '/single-tank_journal.php';
+            }
+        }
+    }
+    return $template_path;
+}
 
 
 ?>

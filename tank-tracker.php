@@ -10,8 +10,9 @@ License: GPLv2
 */
 
 add_action( 'init', 'register_tank_journal_taxonomy', 0 );
-add_action( 'init', 'create_journal_entry' );
+add_action( 'init', 'create_journal_post_types' );
 add_action( 'admin_init', 'journal_entry_meta_setup' );
+add_filter( 'term_link', 'my_term_to_type', 10, 3 );
 
 
 /* Create Tank Journal Taxonomy */
@@ -43,7 +44,19 @@ function register_tank_journal_taxonomy() {
 }
 
 /* Journal Entry Custom Post Type */
-function create_journal_entry() {
+function create_journal_post_types() {    
+
+    register_post_type('tank_journal',
+        array(
+            'public' => true,
+            'menu_position' => 10,
+            'labels' => array( 
+                'name' => 'Tank Journals', 
+                'singular_name' => 'Tank Journal' 
+                )
+        )
+    );
+
     register_post_type( 'journal_entry',
         array(
             'labels' => array(
@@ -63,9 +76,9 @@ function create_journal_entry() {
             ),
  
             'public' => true,
-            'menu_position' => 10,
+            'menu_position' => 15,
             'supports' => array( 'title', 'editor', 'revisions' ),
-            'taxonomies' => array( 'tank_journal' ),
+            'taxonomies' => array( 'tank-journal' ),
             'has_archive' => true
         )
     );
@@ -136,6 +149,35 @@ function journal_entry_meta_setup() {
             delete_post_meta( $post_id, $meta_key, $meta_value );
     }
 
+/* Taxonomy to Post Type Redirect */
+
+    function my_term_to_type( $link, $term, $taxonomy ) {
+
+        if ( 'tank-journal' == $taxonomy ) {
+            $post_id = my_get_post_id_by_slug( $term->slug, 'tank_journal' );
+
+            if ( !empty( $post_id ) )
+                return get_permalink( $post_id );
+        }
+
+        return $link;
+    }
+
+    function my_get_post_id_by_slug( $slug, $post_type ) {
+        global $wpdb;
+
+        $slug = rawurlencode( urldecode( $slug ) );
+        $slug = sanitize_title( basename( $slug ) );
+
+        $post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type = %s", $slug, $post_type ) );
+
+        if ( is_array( $post_id ) )
+            return $post_id[0];
+        elseif ( !empty( $post_id ) );
+            return $post_id;
+
+        return false;
+    }
 
 
 ?>

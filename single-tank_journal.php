@@ -9,12 +9,14 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
-
+			<?php
+			    $mypost = array( 'post_type' => 'tank_journal', );
+			    $loop = new WP_Query( $mypost );
+			    ?>
 			<?php
 				// Start the Loop.
-				while ( have_posts() ) : the_post();
+				while ( $loop->have_posts() ) : $loop->the_post();?>
 
-					// Include the page content template.
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php
 							// Page thumbnail and title.
@@ -23,6 +25,7 @@ get_header(); ?>
 						?>
 
 						<div class="entry-content">
+						<!-- this is a single-tank_journal.php page -->
 							<?php
 								the_content();
 								wp_link_pages( array(
@@ -37,6 +40,7 @@ get_header(); ?>
 						</div><!-- .entry-content -->
 					</article><!-- #post-## -->
 
+				<?php
 					// If comments are open or we have at least one comment, load up the comment template.
 					if ( comments_open() || get_comments_number() ) {
 						comments_template();

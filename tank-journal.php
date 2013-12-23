@@ -6,8 +6,6 @@
 get_header(); ?>
 
 <div id="main-content" class="main-content">
-
-
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 			<?php
@@ -24,7 +22,18 @@ get_header(); ?>
 		<header class="entry-header">
 		<h2>Status Log:</h2>
 		</header>
-			<?php $loop = new WP_Query( array( 'post_type' => 'journal_entry', 'posts_per_page' => 10 ) ); ?>
+			
+			<?php
+				$terms = get_the_terms( $post->ID, 'tank-journal' );					
+				if ( $terms && ! is_wp_error( $terms ) ) : 
+					$termArr = array();
+					foreach ( $terms as $term ) {
+						$termArr[] = $term->slug;
+					}				
+					$taxSlug = $termArr[0];
+				endif; ?>
+
+			<?php $loop = new WP_Query( array( 'tank-journal' => $taxSlug, 'post_type' => 'journal_entry', 'posts_per_page' => 100 ) ); ?>
 			<?php 
 				// Start the Loop again
 				while ( $loop->have_posts() ) : $loop->the_post(); ?>

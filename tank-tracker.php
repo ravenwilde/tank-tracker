@@ -9,19 +9,12 @@ Author URI: http://www.ravenwilde.com/
 License: GPLv2
 */
 
-add_action( 'init', 'register_tank_journal_taxonomy', 0 );
-add_action( 'init', 'create_journal_post_types' );
-add_action( 'admin_init', 'journal_entry_meta_setup' );
-//add_filter( 'term_link', 'my_term_to_type', 10, 3 );
-//add_filter( 'template_include', 'include_tank_journal_template', 1 );
-
-
 /* Create Tank Journal Taxonomy */
 
 function register_tank_journal_taxonomy() {
     register_taxonomy(
         'tank-journal',
-        array( 'journal_entry, page'),
+        array( 'journal_entry', 'page'),
         array(
             'public' => true,
             'labels' => array(
@@ -49,18 +42,6 @@ function register_tank_journal_taxonomy() {
 
 /* Journal Entry Custom Post Type */
 function create_journal_post_types() {    
-
-    // register_post_type('tank_journal',
-    //     array(
-    //         'public' => true,
-    //         'menu_position' => 10,
-    //         'hierarchical' => true,
-    //         'labels' => array( 
-    //             'name' => 'Tank Journals', 
-    //             'singular_name' => 'Tank Journal' 
-    //             )
-    //     )
-    // );
 
     register_post_type( 'journal_entry',
         array(
@@ -154,52 +135,11 @@ function journal_entry_meta_setup() {
             delete_post_meta( $post_id, $meta_key, $meta_value );
     }
 
-/* Taxonomy to Post Type Redirect */
-
-    // function my_term_to_type( $link, $term, $taxonomy ) {
-
-    //     if ( 'tank-journal' == $taxonomy ) {
-    //         $post_id = my_get_post_id_by_slug( $term->slug, 'tank_journal' );
-
-    //         if ( !empty( $post_id ) )
-    //             return get_permalink( $post_id );
-    //     }
-
-    //     return $link;
-    // }
-
-    // function my_get_post_id_by_slug( $slug, $post_type ) {
-    //     global $wpdb;
-
-    //     $slug = rawurlencode( urldecode( $slug ) );
-    //     $slug = sanitize_title( basename( $slug ) );
-
-    //     $post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type = %s", $slug, $post_type ) );
-
-    //     if ( is_array( $post_id ) )
-    //         return $post_id[0];
-    //     elseif ( !empty( $post_id ) );
-    //         return $post_id;
-
-    //     return false;
-    // }
-
-/* Tank Journal Custom Template */
-
-// function include_tank_journal_template( $template_path ) {
-//     if ( get_post_type() == 'tank_journal' ) {
-//         if ( is_single() ) {
-//             // checks if the file exists in the theme first,
-//             // otherwise serve the file from the plugin
-//             if ( $theme_file = locate_template( array ( 'single-tank_journal.php' ) ) ) {
-//                 $template_path = $theme_file;
-//             } else {
-//                 $template_path = plugin_dir_path( __FILE__ ) . '/single-tank_journal.php';
-//             }
-//         }
-//     }
-//     return $template_path;
-// }
-
+/* Make everything happen */
+add_action( 'init', 'register_tank_journal_taxonomy', 0 );
+add_action( 'init', 'create_journal_post_types' );
+add_action( 'admin_init', 'journal_entry_meta_setup' );
+//add_filter( 'term_link', 'my_term_to_type', 10, 3 );
+//add_filter( 'template_include', 'include_tank_journal_template', 1 );
 
 ?>

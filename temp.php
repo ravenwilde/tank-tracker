@@ -57,3 +57,12 @@ function include_tank_journal_template( $template_path ) {
     }
     return $template_path;
 }
+
+add_filter( 'term_link', 'my_term_to_type', 10, 3 );
+add_filter( 'template_include', 'include_tank_journal_template', 1 );
+
+<p>
+            <label for="water-parameters"><?php _e( "Water Parameters", 'example' ); ?></label>
+            <br />
+            <input class="widefat" type="text" name="water-parameters" id="water-parameters" value="<?php echo esc_attr( get_post_meta( $object->ID, 'water_parameters', true ) ); ?>" size="30" />
+        </p>

@@ -139,7 +139,5 @@ function journal_entry_meta_setup() {
 add_action( 'init', 'register_tank_journal_taxonomy', 0 );
 add_action( 'init', 'create_journal_post_types' );
 add_action( 'admin_init', 'journal_entry_meta_setup' );
-//add_filter( 'term_link', 'my_term_to_type', 10, 3 );
-//add_filter( 'template_include', 'include_tank_journal_template', 1 );
 
 ?>

@@ -45,6 +45,21 @@ get_header(); ?>
 
 					<div class="entry-content">
 						<?php the_content(); ?>
+
+						<?php 
+							global $water_params_mb;
+
+							$water_params_mb->the_meta();
+
+							while($water_params_mb->have_fields('temp')) {
+								$water_params_mb->the_name();
+								
+							}
+							while($water_params_mb->have_fields('ph')) {
+								$water_params_mb->the_name();
+								
+							}
+						?>
 					</div>
 				</article>
 

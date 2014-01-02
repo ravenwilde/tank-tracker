@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying a Tank Journal Page
+ * The template for displaying a Tank Journal Entry Post
  */
 
 get_header(); ?>
@@ -42,28 +42,6 @@ get_header(); ?>
 					</article><!-- #post-## -->
 
 			<?php endwhile; ?>
-		<!-- Play Journal Entries -->
-		<section>
-		<header class="entry-header">
-		<h2>Status Log:</h2>
-		</header>
-			<?php $loop = new WP_Query( array( 'post_type' => 'journal_entry', 'posts_per_page' => 10 ) ); ?>
-			<?php 
-				// Start the Loop again
-				while ( $loop->have_posts() ) : $loop->the_post(); ?>
-				
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<?php
-						the_date('m-d-Y', '<header class="entry-header"><h3>', '</h3></header><!-- .entry-header -->');
-					?>
-
-					<div class="entry-content">
-						<?php the_content(); ?>
-					</div>
-				</article>
-
-			<?php endwhile; ?>
-		</section>
 		</div><!-- #content -->
 	</div><!-- #primary -->
 	<?php get_sidebar( 'content' ); ?>

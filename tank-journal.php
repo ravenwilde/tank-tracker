@@ -49,38 +49,46 @@ get_header(); ?>
 						<?php 
 							
 							global $water_params_mb;
-							$water_params_mb->the_meta();
+							$water_params_mb->the_meta(); ?>
+							<ul class="water-parameters" >
 
-							$water_params_mb->the_field('temp');
+						    <?php
+							if ( null !== $water_params_mb->get_the_value('temp') ) {
 							?>
-							<p>Temperature:	<?php $water_params_mb->the_value(); ?></p>
+								<li><span>Temp:</span> <?php echo $water_params_mb->the_value('temp'); ?></li>
+
+							<?php } else { } ?>
 
 							<?php
-
-							$water_params_mb->the_field('ph');
+							if ( null !== $water_params_mb->get_the_value('ph') ) {
 							?>
-							<p>PH:	<?php $water_params_mb->the_value(); ?></p>
+								<li><span>PH:</span> <?php echo $water_params_mb->the_value('ph'); ?></li>
+
+							<?php } else { } ?>
 
 							<?php
-
-							$water_params_mb->the_field('ammo');
+							if ( null !== $water_params_mb->get_the_value('ammo') ) {
 							?>
-							<p>Ammonia:	<?php $water_params_mb->the_value(); ?></p>
+								<li><span>Ammonia:</span> <?php echo $water_params_mb->the_value('ammo'); ?></li>
+
+							<?php } else { } ?>
 
 							<?php
-
-							$water_params_mb->the_field('kh');
+							if ( null !== $water_params_mb->get_the_value('kh') ) {
 							?>
-							<p>KH:	<?php $water_params_mb->the_value(); ?></p>
+								<li><span>KH:</span> <?php echo $water_params_mb->the_value('kh'); ?></li>
+
+							<?php } else { } ?>
 
 							<?php
-
-							$water_params_mb->the_field('gh');
+							if ( null !== $water_params_mb->get_the_value('gh') ) {
 							?>
-							<p>GH:	<?php $water_params_mb->the_value(); ?></p>
+								<li><span>GH:</span> <?php echo $water_params_mb->the_value('gh'); ?></li>
 
-							<?php
-						?>
+							<?php } else { } ?>
+
+							</ul>
+							
 					</div>
 				</article>
 

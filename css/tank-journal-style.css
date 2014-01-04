@@ -1,0 +1,13 @@
+article.type-journal_entry header h3 {
+	font-size: 18px;
+	line-height: 1.3333333333;
+	border-bottom: 1px #333 solid;
+	}
+article.type-journal_entry ul.water-parameters {
+	list-style:none;
+	margin: 0 0 24px;
+	}
+article.type-journal_entry ul.water-parameters li {
+	display: inline;
+	margin: 0 24px 0 0;
+	}

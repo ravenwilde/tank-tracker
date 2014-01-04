@@ -74,11 +74,18 @@ function create_journal_post_types() {
 include_once 'metaboxes/setup.php';
 include_once 'metaboxes/water-params-spec.php';
 
-
-
+/* Load Custom CSS */
+function register_tank_journal_styles()  
+{  
+    // Register the style like this for a plugin:  
+    wp_register_style( 'tank-journal-style', plugins_url( '/css/tank-journal-style.css', __FILE__ ), array(), '20140103', 'all' );  
+    wp_enqueue_style( 'tank-journal-style' );  
+}  
+  
 /* Make everything happen */
 add_action( 'init', 'register_tank_journal_taxonomy', 0 );
 add_action( 'init', 'create_journal_post_types' );
+add_action( 'wp_enqueue_scripts', 'register_tank_journal_styles' );
 
 
 ?>

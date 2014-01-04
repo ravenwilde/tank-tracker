@@ -47,18 +47,39 @@ get_header(); ?>
 						<?php the_content(); ?>
 
 						<?php 
+							
 							global $water_params_mb;
-
 							$water_params_mb->the_meta();
 
-							while($water_params_mb->have_fields('temp')) {
-								$water_params_mb->the_name();
-								
-							}
-							while($water_params_mb->have_fields('ph')) {
-								$water_params_mb->the_name();
-								
-							}
+							$water_params_mb->the_field('temp');
+							?>
+							<p>Temperature:	<?php $water_params_mb->the_value(); ?></p>
+
+							<?php
+
+							$water_params_mb->the_field('ph');
+							?>
+							<p>PH:	<?php $water_params_mb->the_value(); ?></p>
+
+							<?php
+
+							$water_params_mb->the_field('ammo');
+							?>
+							<p>Ammonia:	<?php $water_params_mb->the_value(); ?></p>
+
+							<?php
+
+							$water_params_mb->the_field('kh');
+							?>
+							<p>KH:	<?php $water_params_mb->the_value(); ?></p>
+
+							<?php
+
+							$water_params_mb->the_field('gh');
+							?>
+							<p>GH:	<?php $water_params_mb->the_value(); ?></p>
+
+							<?php
 						?>
 					</div>
 				</article>
